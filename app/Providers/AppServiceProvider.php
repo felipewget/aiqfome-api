@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Integrations\StoreApi\StoreApiClient;
+use App\Integrations\StoreApi\Apis\FakeStoreApi;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,7 +13,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(StoreApiClient::class, function ($app) {
+            $api = $app->make(FakeStoreApi::class);
+
+            return new StoreApiClient($api);
+        });
     }
 
     /**
