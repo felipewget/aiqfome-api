@@ -1,0 +1,80 @@
+version: "3.9"
+
+services:
+  app:
+    container_name: aiqfome-api.app
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    volumes:
+      - ./:/app
+      - ./docker/php/php.ini-development:/usr/local/etc/php/php.ini
+    networks:
+      - aiqfome-api
+    depends_on:
+      - postgres
+      - redis
+
+  queue:
+    container_name: aiqfome-api.queue
+    build:
+      context: .
+      dockerfile: docker/queue/Dockerfile
+    networks:
+      - aiqfome-api
+    depends_on:
+      - app
+
+  cron:
+    container_name: aiqfome-api.cron
+    build:
+      context: .
+      dockerfile: docker/cron/Dockerfile
+    networks:
+      - aiqfome-api
+    depends_on:
+      - app
+
+  nginx:
+    container_name: aiqfome-api.nginx
+    build:
+      context: docker/nginx
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+    volumes:
+      - ./public:/app/public:cached
+    networks:
+      - aiqfome-api
+
+  postgres:
+    container_name: aiqfome-api.postgres
+    image: postgres:16
+    environment:
+      - POSTGRES_USER=iagehealth
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=iagehealth
+    volumes:
+      - aiqfome-api-db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - aiqfome-api
+
+  redis:
+    container_name: aiqfome-api.redis
+    image: bitnami/redis
+    environment:
+        - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - "6379:6379"
+    networks:
+        - aiqfome-api
+
+volumes:
+  aiqfome-api-db-data:
+
+networks:
+  aiqfome-api:
