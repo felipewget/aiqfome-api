@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Helpers\MoneyHelper;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -17,8 +18,8 @@ class FavoritedProductResource extends JsonResource
             'external_id' => $this->store_api_id,
             'title' => $this->title,
             'image' => $this->image,
-            'price' => $this->price,
-            'review' => $this->rating
+            'price' => MoneyHelper::stringToFloat($this->price),
+            'review' => $this->review,
         ];
     }
 }
