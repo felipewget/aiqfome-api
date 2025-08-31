@@ -1,61 +1,52 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Documentação da API pra AiQFome
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Esta API é integrada com uma API de produtos de terceiros(third-party), lista de produtos favoritos e usuários com autenticação e permissões onde os usuários podem ser **admin** ou **clientes**.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Passo a passo de como testar
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+1. **Clonar o projeto e configurar:**
+   - Faça `git clone` do projeto.
+   - Entre na pasta e instale as dependências com `composer install`.
+   - Renomeie o arquivo `example.env` para `.env`.
+   - Inicie o projeto com `docker compose up`.
+   - O projeto esta em container e a aplicação já estará prota pra uso
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+2. **Usuários disponíveis após iniciar o projeto:**
+   - As migrations e seeders serão executadas automaticamente.
+   - Você terá acesso a 2 usuários e poderá acessar a aplicação na porta 80:
+     - **Admin:** `admin@aiqfome.com.br` | `Me_contrata_ai@123`  
+     - **Cliente:** `client@aiqfome.com.br` | `Me_contrata_ai@123`  
 
-## Learning Laravel
+3. **Testes da API:**
+   - No endpoint `/docs` há uma documentação completa, com sugestões de testes e exemplos de como testar cada endpoint item por item.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+# O que foi pedido
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Clientes
+- Criar, visualizar, editar e remover clientes. (✅ Apenas admin pode gerenciar clientes)
+- Dados obrigatórios: nome e e-mail. (✅)
+- Um mesmo e-mail não pode se repetir no cadastro. (✅)
 
-## Laravel Sponsors
+## Favoritos
+- Um cliente deve ter uma lista de produtos favoritos. (✅)
+- Os produtos devem ser validados via API externa. (✅)
+- Um produto não pode ser duplicado na lista de um cliente. (✅ Usando relacionamento many-to-many)
+- Produtos favoritos devem exibir: ID, título, imagem, preço e review. (✅)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Regras Gerais
+- A API deve ser pública, mas conter autenticação e autorização. (✅)
+- Evite duplicidade de dados. (✅)
+- Estruture bem o código, seguindo boas práticas REST. (✅)
+- Pense em performance e escalabilidade. (✅ Sempre há espaço para melhorias: shard, replicas, mais paginacoes, indexes, microserviços ou modularização)
+- Documente sua API (OpenAPI/Swagger é bem-vindo, mas opcional). (✅)
+- Não use IA ou cópias. Será passível de eliminação. (✅)
 
-### Premium Partners
+## Linguagem Escolhida
+- PHP com Laravel uma vez que PHP ou Python estava como desejavel na vaga e Laravel e um ótimo framwork pra se trabalhar, porem eu poderia usar Node.js (JS/TS) também por que eu sou muito bom, nesse caso usaria o NestJS.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Banco de Dados
+- PostgreSQL, pois o requisito de não duplicidade se enquadra bem aki, em outro ponto, o MongoDB é um banco nao relacional, então ele nao parece ser a melhor escolha se eu nao quero duplicar dados

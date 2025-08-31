@@ -34,9 +34,15 @@ class UserController extends Permissions
      * Cria um novo user
      *
      * @param StoreUserRequest $request Request com dados do usuário
+     * @bodyParam name string required Nome do usuário. Example: Felipe Oliveira
+     * @bodyParam email string required Email do usuário. Example: felipe@aiqfome.com.br
+     * @bodyParam password string required Senha do usuário. Example: Me_contrata_ai@123
+     * @bodyParam password_confirmation string required Confirmação da senha. Example: Me_contrata_ai@123
+     * @bodyParam type string required Tipo do usuário. Example: admin
+ 
      * @return Response http 201
      */
-    public function store(StoreUserRequest $request):Response
+    public function store(StoreUserRequest $request): Response
     {
         $this->checkPermission('create_users');
 
@@ -55,15 +61,16 @@ class UserController extends Permissions
      * Mostra dados de um usuario por id
      *
      * @param User $user
+     * @urlParam id string required User id. Example: 1
      * @return UserResource
      */
     public function show(User $user): UserResource
-    {
+    {   
         $user->id == Auth::user()->id
             ? $this->checkAnyPermission(['get_personal_data', 'list_users'])
             : $this->checkPermission('list_users');
 
-        return new UserResource($user);
+        return new UserResource($user ?? null);
     }
 
     /**
@@ -71,6 +78,9 @@ class UserController extends Permissions
      *
      * @param Request $request Request com os dados a atualizar
      * @param User $user Usuário a ser atualizado
+     * @urlParam id string required User id. Example: 1
+     * @bodyParam name string required Name. Example: Astolfo
+     * @bodyParam email string required Email. Example: astolfo@cliente.com
      * @return JsonResponse Retorna status HTTP 200 OK com os dados atualizados
      */
     public function update(Request $request, User $user)

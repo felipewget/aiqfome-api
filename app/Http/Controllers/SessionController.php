@@ -19,6 +19,9 @@ class SessionController extends Permissions
      * @param StoreSessionRequest $request Request contendo email e senha
      * @throws \Exception Caso ocorra algum erro interno durante autenticação
      * @return JsonResponse Retorna o token JWT e os dados do usuário autenticado
+     * @unauthenticated
+     * @bodyParam email string required Email do usuário. Example: admin@aiqfome.com.br
+     * @bodyParam password string required Senha do usuário. Example: Me_contrata_ai@123
      */
     public function store(StoreSessionRequest $request): mixed
     {
@@ -37,7 +40,6 @@ class SessionController extends Permissions
 
     /**
      * Finaliza uma sessao JWT e adiciona o token a uma blacklist
-     * (black list e necessaria por que e dificil invalidar um login sem tocar o secret e derrubar todos as sessoes de usuario)
      *
      * @return JsonResponse Retorna o token JWT e os dados do usuário autenticado
      */
