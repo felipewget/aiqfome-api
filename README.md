@@ -62,3 +62,19 @@ Esta API é integrada com uma API de produtos de terceiros(third-party), lista d
 - Deployment: Eu to criando Pull Requests pra Devleop e vou fazer um deployment pra main como se fosse em produto, numa situacao real teria a producao -> task  -> dev -> uat -> deploy pra producao... ou RC com cada dev com seu proprio ambiente e candidates release no dev
 
 Destaque pra Proxy Pattern no API client de produtos uma vez que estou usando composicao pra selecionar a Lib, facilitando a manutancao e a troca de lib se necessario e ate addicao de mocks, tambem adicionei um Singleton no Provider na qual eu adiciono a lib
+
+## O que poderia melhorar
+
+- CD/CI (Buddy?)
+- Github Workflow verificando testes automatizados antes do merge
+- Shards, replicas e mais indexes
+- Adicionar load balancers e DNS por regiao
+- Auto scaling
+- Search engines 
+- Dessacoplar mais ainda as entidades baseado no tamanho da requisicao
+- Testes de estresse
+- Limites de requisicao por tempo baseado em IP
+- Setar o sentry pra receber logs de erros quando/se eles acontecerem
+- Produto favoritos poderia ter um contador uma vez que e many-to-many, poderia ter um "quantos clintes favoritaram esse produto"
+- Paginacao na API externa de produtos, nos usuarios tambem
+- Na minha memoria por agora e isso, mas sempre da pra melhorar
