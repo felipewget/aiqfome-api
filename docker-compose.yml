@@ -53,9 +53,9 @@ services:
     container_name: aiqfome-api.postgres
     image: postgres:16
     environment:
-      - POSTGRES_USER=iagehealth
+      - POSTGRES_USER=aiqfome
       - POSTGRES_PASSWORD=secret
-      - POSTGRES_DB=iagehealth
+      - POSTGRES_DB=aiqfome
     volumes:
       - aiqfome-api-db-data:/var/lib/postgresql/data
     ports:
