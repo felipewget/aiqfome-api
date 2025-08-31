@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Helpers\MoneyHelper;
 use App\Integrations\StoreApi\StoreApiClient;
 use App\Models\User;
 use App\Models\Product;
@@ -62,8 +63,8 @@ class ProductFavoritesService
                 'store_api_id' => $apiProductId,
                 'title' => $apiProduct['title'],
                 'image' => $apiProduct['image'],
-                'price' => implode('', explode('.', $apiProduct['price'])),
-                'review' => json_encode($apiProduct['rating']),
+                'price' => MoneyHelper::floatToString($apiProduct['price']),
+                'review' => $apiProduct['rating'],
             ]
         );
 
