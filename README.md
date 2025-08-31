@@ -60,6 +60,7 @@ Esta API é integrada com uma API de produtos de terceiros(third-party), lista d
 - Design Patterns e cache-aside
 - Documentação
 - Deployment: Eu to criando Pull Requests pra Devleop e vou fazer um deployment pra main como se fosse em produto, numa situacao real teria a producao -> task  -> dev -> uat -> deploy pra producao... ou RC com cada dev com seu proprio ambiente e candidates release no dev
+- Usando dinheiro como string por que isso garante que as operacoes matematicas estarao 100% corretas, calculos envolvendo floats podem apresentar pequenas discrepancias em calculalos matematicos, por exemplo: 0.7 + 0.1 = 0.7999... (facil testar no navegador, developer tools)
 
 Destaque pra Proxy Pattern no API client de produtos uma vez que estou usando composicao pra selecionar a Lib, facilitando a manutancao e a troca de lib se necessario e ate addicao de mocks, tambem adicionei um Singleton no Provider na qual eu adiciono a lib
 
