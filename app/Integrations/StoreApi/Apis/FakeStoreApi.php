@@ -3,7 +3,6 @@
 namespace App\Integrations\StoreApi\Apis;
 
 use App\Integrations\StoreApi\AbstractApi;
-use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 
 class FakeStoreApi extends AbstractApi
