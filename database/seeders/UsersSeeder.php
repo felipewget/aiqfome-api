@@ -15,7 +15,7 @@ class UsersSeeder extends Seeder
         $admin = User::firstOrCreate(
             ['email' => 'admin@aiqfome.com.br'],
             [
-                'name' => 'Admin',
+                'name' => 'Administrador',
                 'password' => Hash::make('Me_contrata_ai@123'),
             ]
         );
@@ -25,7 +25,7 @@ class UsersSeeder extends Seeder
         $client = User::firstOrCreate(
             ['email' => 'client@aiqfome.com.br'],
             [
-                'name' => 'Client',
+                'name' => 'Cliente Feliz',
                 'password' => Hash::make('Me_contrata_ai@123'),
             ]
         );

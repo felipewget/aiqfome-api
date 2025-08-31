@@ -65,12 +65,13 @@ class ProductFavoriteController extends Permissions
      * @param StoreProductFavoriteRequest $request Request contendo o ID do product na api externa pra favoritar
      * @throws \Exception Caso ocorra algum erro ao remover o produto
      * @return Response no content 204
+     * @urlParam id required API Product ID. Example: 1
      */
-    public function destroy($id): Response
+    public function destroy($productId): Response
     {
         $this->checkPermission('remove_favorites');
 
-        $this->productFavotesService->removeProduct($id);
+        $this->productFavotesService->removeProduct($productId);
 
         return response()->noContent();
     }
